@@ -12,9 +12,9 @@
 
 ```
 sudo chgrp student2 homework  
-sudo chmod g+rwx homework  
-sudo chmod +r homework
+sudo chmod 575 homework/
 ```
+Оставил еще право на запуск (x), т.к. без него нельзя открыть папку  
 
 ![](pic/folder_rights.png)  
 
