@@ -5,25 +5,18 @@
 
 Сканирование Xmas заключается в очистке заголовка SYN из TCP-пакета и замене его битами FIN, PSH и URG (или заголовками Or) в обход брандмауэра.
 ```
-#alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"GPL SCAN nmap XMAS"; flow:stateless; flags:FPU,12; reference:arachnids,30; classtype:attempted-recon; sid:2101228; rev:8;)
+#alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"SCAN nmap XMAS"; flow:stateless; flags:FPU,12; sid:1;)
 ```
 
 ### Задание 2
 
 Напишите правило для детектирования стороннего трафика, передающегося службой DNS.
-
-*Дайте ответ в свободной форме.*
-
-------
-
-## Дополнительные задания со звёздочкой.
-
-Эти задания необязательные. Их выполнение никак не влияет на получение зачёта по домашней работе. Вы можете их выполнить, если хотите усвоить полученный материал и лучше разобраться в теме.
-
-------
+```
+alert dns $EXTERNAL_NET any -> $HOME_NET any (msg:"Test dns.query option"; dns.query; content:"../../../"; nocase; sid:1;)
+```
 
 ### Задание 3*
 
 Напишите правило для детектирования файлов или документов в сетевом трафике.
 
-*Дайте ответ в свободной форме.*
+#alert http $EXTERNAL_NET any -> $HOME_NET (msg:"incorrect magic byte"; flow:established,to_client; fileext:"pdf"; filemagic:!"PDF document"; filestore; sid:1;)
